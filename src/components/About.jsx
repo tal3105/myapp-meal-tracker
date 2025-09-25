@@ -36,6 +36,16 @@ export default function About() {
           תודה שנכנסת! מקווה שתמצא/י את הכלי מועיל במסע שלך לאורח
           חיים בריא יותר
         </p>
+
+        <div className="border border-gray-300 p-4 rounded-md mt-6 bg-white/70 shadow-inner">
+  <h3 className="text-gray-700 font-semibold mb-2 text-lg">פרטי יצירת קשר</h3>
+  <ul className="text-gray-600 space-y-1">
+    <li>שם: טל מיצכר</li>
+    <li>אימייל: taltul432@gmail.com</li>
+    <li>תאריך: 25.9.2025</li>
+    <li>גרסא: 0.1</li>
+  </ul>
+</div>
       </section>
     </div>
   )

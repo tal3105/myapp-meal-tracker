@@ -44,15 +44,13 @@ export default function Header({ user, setUser }) {
           <NavLink to="/about" className={navLinkClasses}>אודות</NavLink>
 
           {/* כפתור התחברות/התנתקות */}
-          {user ? (
+          {user && (
             <button
               onClick={handleLogout}
               className="px-3 py-2 rounded-md text-sm font-medium bg-red-500 text-white hover:bg-red-600 transition"
             >
               התנתקות
             </button>
-          ) : (
-            <NavLink to="/login" className={navLinkClasses}>התחברות</NavLink>
           )}
         </div>
 
@@ -74,15 +72,13 @@ export default function Header({ user, setUser }) {
           <NavLink to="/contact" className={navLinkClasses} onClick={() => setMenuOpen(false)}>צור קשר</NavLink>
           <NavLink to="/about" className={navLinkClasses} onClick={() => setMenuOpen(false)}>אודות</NavLink>
 
-          {user ? (
+          {user && (
             <button
-              onClick={() => { handleLogout(); setMenuOpen(false); }}
+              onClick={handleLogout}
               className="px-3 py-2 rounded-md text-sm font-medium bg-red-500 text-white hover:bg-red-600 transition"
             >
               התנתקות
             </button>
-          ) : (
-            <NavLink to="/login" className={navLinkClasses} onClick={() => setMenuOpen(false)}>התחברות</NavLink>
           )}
         </div>
       )}

@@ -15,6 +15,8 @@ export default function Register({ setUser }) {
   const [activity, setActivity] = useState("");
   const [gender, setGender] = useState("");
 
+  const [errorMessage, setErrorMessage] = useState(""); // <-- שדה לשגיאות
+
   const calculatorCalories = () => {
     let BMR = 0;
     if (gender === "זכר") {
@@ -34,67 +36,49 @@ export default function Register({ setUser }) {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setErrorMessage(""); // נקה הודעות קודמות
     const dailyGoal = calculatorCalories();
 
     try {
-        const userCredential = await createUserWithEmailAndPassword(
-            auth, 
-            email,
-            password
-        );
-        const firebaseUser = userCredential.user;
+      const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+      const firebaseUser = userCredential.user;
 
-        const newUser = {
-            uid: firebaseUser.uid,
-            name,
-            email,
-            age,
-            height,
-            weight,
-            activity,
-            gender,
-            dailyGoal,
-        };
+      const newUser = {
+        uid: firebaseUser.uid,
+        name,
+        email,
+        age,
+        height,
+        weight,
+        activity,
+        gender,
+        dailyGoal,
+      };
 
-        setUser(newUser);
-        navigate("/profile");
-    } catch {
-        alert("אירעה שגיאה בהרשמה: ");
+      setUser(newUser);
+      navigate("/profile");
+    } catch (error) {
+      console.log("Firebase error:", error); // הדפסה לקונסול
+      setErrorMessage(error.message); // הצגה למשתמש
     }
   };
 
-  /*const handleSubmit = (e) => {
-    e.preventDefault();
-    const dailyGoal = calculatorCalories();
-
-    const newUser = {
-      name,
-      email,
-      password,
-      age,
-      height,
-      weight,
-      activity,
-      gender,
-      dailyGoal,
-    };
-
-    setUsers([...users, newUser]);
-    setUser(newUser);
-    navigate("/profile");
-  }; */
-
   return (
     <div dir="rtl" className="relative min-h-screen bg-gradient-to-br from-indigo-50 via-purple-50 to-pink-50 flex items-center justify-center p-6">
-      {/* רקעים דינמיים */}
       <div className="absolute top-0 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] bg-purple-200 rounded-full opacity-30 animate-pulse blur-3xl"></div>
       <div className="absolute bottom-0 right-0 w-[400px] h-[400px] bg-pink-200 rounded-full opacity-30 animate-pulse blur-2xl"></div>
 
-      {/* כרטיס מרכזי */}
       <section className="relative z-10 bg-white bg-opacity-80 backdrop-blur-md rounded-3xl shadow-2xl p-8 w-full max-w-xl">
-        <h2 className="text-3xl font-bold mb-8 text-center">הרשמה</h2>
+        <h2 className="text-3xl font-bold mb-4 text-center">הרשמה</h2>
+
+        {errorMessage && (
+          <div className="mb-4 p-2 bg-red-100 text-red-700 rounded">
+            {errorMessage}
+          </div>
+        )}
 
         <form onSubmit={handleSubmit} className="space-y-4 bg-white p-6 rounded-xl shadow">
+          {/* שדות שם, אימייל, סיסמה, גיל, גובה, משקל, פעילות, מגדר */}
           <div>
             <label className="block mb-1 font-medium">שם מלא</label>
             <input
