@@ -1,8 +1,7 @@
-import { useNavigate } from "react-router-dom";
+
 import { FaTrash, FaEdit } from "react-icons/fa";
 
 export default function MealsPage({ meals, onDelete }) {
-    const navigate = useNavigate();
 
     return (
     <div dir="rtl" className="relative min-h-screen bg-gradient-to-br from-indigo-50 via-purple-50 to-pink-50 flex items-center justify-center p-6">
